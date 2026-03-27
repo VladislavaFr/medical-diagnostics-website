@@ -120,9 +120,9 @@ class TestRecord(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(Record.objects.all().count(), 1)
-        self.assertEqual(self.record.user.email, 'admin@example.com')
+        self.assertEqual(self.record.user.email, 'testuser@example.com')
         self.assertEqual(self.record.service.name, "TEST1")
-        self.assertEqual(self.record.doctor.specialization, "врач высшей категории")
+        self.assertEqual(self.record.doctor.specialization, "Кардиолог")
 
     def test_list_record(self):
         response = self.client.get(self.list_url)
@@ -168,9 +168,9 @@ class TestRecord(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_302_FOUND)
         self.assertEqual(Record.objects.all().count(), 1)
-        self.assertEqual(self.record.user.email, 'admin@example.com')
+        self.assertEqual(self.record.user.email, 'testuser@example.com')
         self.assertEqual(self.record.service.name, "TEST1")
-        self.assertEqual(self.record.doctor.specialization, "врач высшей категории")
+        self.assertEqual(self.record.doctor.specialization, "Кардиолог")
 
 
 class TestDiagnostic(TestCase):

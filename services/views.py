@@ -6,6 +6,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from services.forms import ServiceForm, RecordForm
 from services.models import Service, Record, Diagnostic
 
+from django.contrib.auth.mixins import UserPassesTestMixin
+
 class ServiceListView(ListView):
     model = Service
     template_name = 'services/home.html'
@@ -85,17 +87,15 @@ class RecordListView(ListView):
     template_name = 'services/record_list.html'
 
 
-class RecordUpdateView(LoginRequiredMixin, UpdateView):
+class RecordUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Record
     form_class = RecordForm
     success_url = reverse_lazy('services:record_list')
     login_url = "users:login"
     redirect_field_name = "redirect_to"
 
-    def get_form_class(self):
-        user = self.request.user
-        if user == self.object.user:
-            return RecordForm
+    def test_func(self):
+        return self.request.user == self.get_object().user or self.request.user.is_superuser
 
 
 class RecordDeleteView(LoginRequiredMixin, DeleteView):
