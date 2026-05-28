@@ -11,8 +11,8 @@ class DoctorListView(ListView):
     model = Doctor
     template_name = 'doctors/home.html'
 
-    def get_queryset(self):
-        return get_qs_from_cache(qs=Doctor.objects.all(), key='doctor_list')
+    # def get_queryset(self):
+    #     return get_qs_from_cache(qs=Doctor.objects.all(), key='doctor_list')
 
 
 class DoctorCreateView(LoginRequiredMixin, CreateView):
